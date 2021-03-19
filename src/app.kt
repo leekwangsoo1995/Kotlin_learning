@@ -2,10 +2,21 @@
 package ssample
 
 fun  main(){
-    println("hello world");
-    val half = Rational(1,2)
-    println(half.denominator);
+    val half = Rational(16,24)
+    println(half);
 }
 
-class Rational(val numerator:Int , val denominator:Int)
+class Rational(val n:Int , val d:Int){
+    init{
+        require(d != 0,{"denominator must not be null"})
+    }
+    private val g = gcd(Math.abs(n),Math.abs(d));
+    val numerator: Int = n / g;
+    val denominator: Int = d / g;
+    override fun toString(): String = "${numerator}/${denominator}"
+    tailrec private fun gcd(a:Int,b:Int): Int =
+        if(b == 0)a
+        else gcd(b, a%b)
+
+}
 
